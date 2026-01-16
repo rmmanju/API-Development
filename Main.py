@@ -13,3 +13,6 @@ def read_item(item_id: int, q: str = None):
 @app.post("/item/")
 def create_item(name: str, price: float):
     return {"name": name, "price": price}   
+@app.put("/item/{item_id}")
+def update_item(item_id: int, name: str = None, price: float = None):
+    return {"item_id": item_id, "name": name, "price": price}
