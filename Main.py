@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -33,5 +33,3 @@ def read_item(item_id: int, q: str = None):
 @app.post("/item/")
 def create_item(name: str, price: float):
     return {"name": name, "price": price}   
-    
->>>>>>> e85ad990d2492aed16c565ec2e65d266ac8cea21
