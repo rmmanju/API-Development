@@ -35,6 +35,8 @@ def get_patient(patient_id: str):
     else:
         return {"error": "Patient not found", "status_code": response.status_code}
 
-  
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}  
 
 
