@@ -35,8 +35,15 @@ def get_patient(patient_id: str):
     else:
         return {"error": "Patient not found", "status_code": response.status_code}
 
-@app.get("/")
+@app.get("/get_encounter/{encounter_id}")
+def get_encounter(encounter_id: str):
+    response = requests.get(f"{FHIR_SERVER_URL}/Encounter/{encounter_id}", headers={"Content-Type": "application/fhir+json"})
+    if response.status_code == 200:
+        encounter_instance = Patient.parse_raw(response.text)
+        return encounter_instance.model_dump()
+    else:
+        return {"error": "Encounter not found", "status_code": response.status_code}
+
+@app.get("/")  
 def read_root():
-    return {"Hello": "World"}  
-
-
+    return {"message": "Welcome to the FHIR Client API"}
