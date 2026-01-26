@@ -14,8 +14,8 @@ FHIR_SERVER_URL = "https://hapi.fhir.org/baseR4/Patient" # Replace with your ser
 
 
 # ... create a Patient resource
-patient_name = HumanName(family='Smith', given=['John'])
-patient = Patient(name=[patient_name], gender='male', birthDate='1984-01-01',identifier=[Identifier(system='http://hospital.smarthealthit.org', value='547414464')])
+patient_name = HumanName(family='Manjunath', given=['Maddareddy'])
+patient = Patient(name=[patient_name], gender='male', birthDate='1984-06-01',identifier=[Identifier(system='http://hospital.smarthealthit.org', value='547414464')])
 
 
 patient_json = patient.model_dump_json()
