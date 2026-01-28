@@ -6,11 +6,13 @@ from fhir.resources.identifier import Identifier
 from fhir.resources.fhirtypes import IdentifierType
 from pydantic import BaseModel
 
+
 import requests 
 from fastapi import FastAPI
 
 app = FastAPI()
 FHIR_SERVER_URL = "https://hapi.fhir.org/baseR4/Patient" # Replace with your server URL
+MY_API_URL = "https://api-development-n7r3.onrender.com/get_patient/53888681"
 
 
 # ... create a Patient resource
@@ -28,10 +30,13 @@ def create_patient():
 
 @app.get("/get_patient/{patient_id}")
 def get_patient(patient_id: str):
-    response = requests.get(f"{FHIR_SERVER_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
+    #response = requests.get(f"{FHIR_SERVER_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
+    response = requests.get(f"{MY_API_URL}", headers={"Content-Type": "application/fhir+json"})
     if response.status_code == 200:
-        patient_instance = Patient.parse_raw(response.text)
-        return patient_instance.model_dump()
+        patient_instance = Patient.model_validate_json(response.text)
+        print("Patient ID:", patient_instance.identifier[0].value)
+        print("Patient Name:", patient_instance.name[0].given[0], patient_instance.name[0].family)
+        return patient_instance.model_dump_json()
     else:
         return {"error": "Patient not found", "status_code": response.status_code}
 
