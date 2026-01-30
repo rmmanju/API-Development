@@ -31,6 +31,7 @@ patient = Patient(
     contact=   [{'relationship': 
                [{'coding': 
                [{'system': 'http://terminology.hl7.org/CodeSystem/v2-0131', 'code': 'E', 'display': 'Emergency'}]}]}     ])
+
 encounter = Encounter(status = 'finished')
 patient_json = patient.model_dump_json()
 
@@ -42,8 +43,8 @@ def create_patient():
 
 @app.get("/get_patient/{patient_id}")
 def get_patient(patient_id: str):
-    #response = requests.get(f"{FHIR_SERVER_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
-    response = requests.get(f"{MY_API_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
+    response = requests.get(f"{FHIR_SERVER_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
+    #response = requests.get(f"{MY_API_URL}/{patient_id}", headers={"Content-Type": "application/fhir+json"})
     if response.status_code == 200:
         patient_instance = Patient.model_validate_json(response.text)
         print("Patient ID:", patient_instance.identifier[0].value)
